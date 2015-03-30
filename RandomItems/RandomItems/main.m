@@ -53,7 +53,10 @@ int main(int argc, const char * argv[]) {
         NSLog(@"%@ %@ %@ %d", [item itemName],[item dateCreated],
               [item serialNumber], [item valueInDollars]);
         
+        NSLog(@"%@", item);
+        
         item=nil;
+        
         
         
         
