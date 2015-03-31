@@ -23,21 +23,21 @@ int main(int argc, const char * argv[]) {
         [items addObject:@"One"];
         [items addObject:@"Two"];
         [items addObject:@"Three"];
-        
+
         //Send another messange, insertObject:atIndex:, to that same array object
         [items insertObject:@"Zero" atIndex:0];
-        
+
         
         
         for (int i=0; i < [items count]; i++) {
             NSString *item = [items objectAtIndex:i];
             NSLog(@"%@", item);
         }
-        
+
         
         //Destroy the mutable array object
-        items=nil;
-        
+//        items=nil;
+
         int a = 1;
         float b = 2.5;
         char c = 'A';
@@ -48,18 +48,34 @@ int main(int argc, const char * argv[]) {
         [item setItemName:@"Red Sofa"];
         [item setSerialNumber:@"A1B2C3"];
         [item setValueInDollars:100];
-        
+
         
         NSLog(@"%@ %@ %@ %d", [item itemName],[item dateCreated],
               [item serialNumber], [item valueInDollars]);
         
         NSLog(@"%@", item);
         
-        item=nil;
+//        item=nil;
+        
+//        BWItem *testItem = [BWItem randomItem];
+        
+        for (int i=0; i<10; i++) {
+            BWItem *item1 = [BWItem randomItem];
+            [items addObject:item1];
+        }
+        
+        for (BWItem *item2 in items) {
+            NSLog(@"%@", item2);
+        }
         
         
         
+//        id lastObj = [items lastObject];
         
+        //lastObj is an instance of BWItem and will not understand the count message
+//        [lastObj count];
+        
+//        NSLog(@"$@", [items objectAtIndex:51]);
         
     }
     return 0;
