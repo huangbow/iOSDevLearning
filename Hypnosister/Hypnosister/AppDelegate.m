@@ -36,6 +36,10 @@
 //    [self.window addSubview:secondview];
     [firstview addSubview:secondview];
 */
+    CGRect firstframe = self.window.bounds;
+    BWHHypnosisView *firstView = [[BWHHypnosisView alloc] initWithFrame:firstframe];
+//    firstView.backgroundColor = [UIColor redColor];
+    [self.window addSubview:firstView];
     
     
     

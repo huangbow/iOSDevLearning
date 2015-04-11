@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FAB3289C1AD9B0CC00C9A244 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB3289B1AD9B0CC00C9A244 /* logo.png */; };
 		FAC1C8FE1AD909E700729FC6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC1C8FD1AD909E700729FC6 /* main.m */; };
 		FAC1C9011AD909E700729FC6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC1C9001AD909E700729FC6 /* AppDelegate.m */; };
 		FAC1C9041AD909E700729FC6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC1C9031AD909E700729FC6 /* ViewController.m */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FAB3289B1AD9B0CC00C9A244 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		FAC1C8F81AD909E700729FC6 /* Hypnosister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hypnosister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC1C8FC1AD909E700729FC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAC1C8FD1AD909E700729FC6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		FAC1C8EF1AD909E700729FC6 = {
 			isa = PBXGroup;
 			children = (
+				FAB3289B1AD9B0CC00C9A244 /* logo.png */,
 				FAC1C9211AD909FC00729FC6 /* BWHHypnosisView.h */,
 				FAC1C9221AD909FC00729FC6 /* BWHHypnosisView.m */,
 				FAC1C8FA1AD909E700729FC6 /* Hypnosister */,
@@ -203,6 +206,7 @@
 			files = (
 				FAC1C90C1AD909E700729FC6 /* LaunchScreen.xib in Resources */,
 				FAC1C9091AD909E700729FC6 /* Images.xcassets in Resources */,
+				FAB3289C1AD9B0CC00C9A244 /* logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +410,7 @@
 				FAC1C91D1AD909E700729FC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FAC1C91E1AD909E700729FC6 /* Build configuration list for PBXNativeTarget "HypnosisterTests" */ = {
 			isa = XCConfigurationList;
@@ -414,6 +419,7 @@
 				FAC1C9201AD909E700729FC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
