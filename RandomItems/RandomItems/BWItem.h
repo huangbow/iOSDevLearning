@@ -9,12 +9,26 @@
 #import <Foundation/Foundation.h>
 
 @interface BWItem : NSObject
-{
-    NSString *_itemName;
-    NSString *_serialNumber;
-    int _valueInDollars;
-    NSDate *_dateCreated;
-}
+//{
+//    NSString *_itemName;
+//    NSString *_serialNumber;
+//    int _valueInDollars;
+//    NSDate *_dateCreated;
+//    
+//    BWItem *_containedItem;
+//    __weak BWItem *_container;
+//    
+//}
+
+@property (strong, nonatomic) BWItem *containedItem;
+@property (weak, nonatomic) BWItem *container;
+
+@property (copy, nonatomic) NSString *itemName;
+@property (copy, nonatomic) NSString *serialNumber;
+@property (nonatomic) int valueInDollars;
+@property (readonly, strong, nonatomic) NSDate *dateCreated;
+
+
 
 + (instancetype)randomItem;
 
@@ -27,6 +41,10 @@
 
 - (instancetype)initWithItemName:(NSString *)name serialNumber:(NSString *)sNumber;
 
+
+
+
+
 - (void)setItemName:(NSString *)str;
 - (NSString *)itemName;
 - (void)setSerialNumber:(NSString *)str;
@@ -34,5 +52,9 @@
 - (void)setValueInDollars:(int)v;
 - (int)valueInDollars;
 - (NSDate *)dateCreated;
+- (void)setContainedItem:(BWItem *)item;
+- (BWItem *)containedItem;
+- (void)setContainer:(BWItem *)item;
+- (BWItem *)container;
 
 @end

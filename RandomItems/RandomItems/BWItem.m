@@ -85,43 +85,18 @@
 }
 
 
--(void)setItemName:(NSString *)str {
-    _itemName = str;
+-(void) dealloc
+{
+    NSLog(@"Destroyed: %@", self);
 }
 
 
--(NSString *)itemName {
-    return _itemName;
-}
 
--(void)setSerialNumber:(NSString *)str {
-    _serialNumber=str;
-}
 
--(NSString *)serialNumber {
-    return _serialNumber;
-}
-
--(NSDate *)dateCreated {
-    return _dateCreated;
-}
-
--(void)setValueInDollars:(int)v {
-    _valueInDollars=v;
-}
-
--(int)valueInDollars {
-    return _valueInDollars;
-}
-
--(NSString *) description {
-    NSString *desceiptionString =
-        [[NSString alloc] initWithFormat:@"%@ (%@): Worth $%d, recorded on %@",
-                            self.itemName,
-                            self.serialNumber,
-                            self.valueInDollars,
-                            self.dateCreated];
-    return desceiptionString;
+-(void)setContainedItem:(BWItem *)item
+{
+    _containedItem = item;
+    self.containedItem.container = self;
 }
 
 

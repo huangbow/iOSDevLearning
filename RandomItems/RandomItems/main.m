@@ -77,6 +77,27 @@ int main(int argc, const char * argv[]) {
         
 //        NSLog(@"$@", [items objectAtIndex:51]);
         
+//        NSLog(@"Setting items to nil...");
+//        items=nil;
+//        [items addObject:@"aa"];
+//        NSLog(@"count: %ld",[items count]);
+        
+        NSMutableArray *itemset = [[NSMutableArray alloc] init];
+        BWItem *backpack = [[BWItem alloc] initWithItemName:@"Backpack"];
+        [itemset addObject:backpack];
+        
+        BWItem *calculator = [[BWItem alloc] initWithItemName:@"Calculator"];
+        [itemset addObject:calculator];
+        
+        backpack.containedItem = calculator;
+        backpack = nil;
+        calculator = nil;
+        itemset = nil;
+        
+
+        
+        
+        
     }
     return 0;
 }
