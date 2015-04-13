@@ -1,14 +1,14 @@
 //
 //  AppDelegate.m
-//  Hypnosister
+//  HypnoNerd
 //
-//  Created by Alex on 4/11/15.
+//  Created by Bowen Huang on 4/12/15.
 //  Copyright (c) 2015 bowen. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "BWHHypnosisView.h"
-
+#import "BWHHypnosisViewController.h"
+#import "BWHReminderViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,67 +18,23 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-/*
-    CGRect firstframe = CGRectMake(160, 240, 100, 150);
-
-    BWHHypnosisView *firstview = [[BWHHypnosisView alloc] initWithFrame:firstframe];
-    firstview.backgroundColor = [UIColor redColor];
+    // Override point for customization after application launch.
+    BWHHypnosisViewController *hvc = [[BWHHypnosisViewController alloc] init];
     
-    [self.window addSubview:firstview];
+    // This will get a pointer to an object that represents the app bundle
+    NSBundle *appBundle = [NSBundle mainBundle];
     
-    
-    CGRect secondframe = CGRectMake(20, 30, 50, 50);
-    
-    BWHHypnosisView *secondview = [[BWHHypnosisView alloc] initWithFrame:secondframe];
-    secondview.backgroundColor = [UIColor blueColor];
-//    [self.window addSubview:secondview];
-    [firstview addSubview:secondview];
-*/
-    
-/*
-//CH4
-    CGRect firstframe = self.window.bounds;
-    BWHHypnosisView *firstView = [[BWHHypnosisView alloc] initWithFrame:firstframe];
-//    firstView.backgroundColor = [UIColor redColor];
-    [self.window addSubview:firstView];
-    
-*/
-    //CH5
-    // Create CGRect for frames
-    CGRect screenRect = self.window.bounds;
-    CGRect bigRect = screenRect;
-    bigRect.size.width *= 2.0;
-//    bigRect.size.height *= 2.0;
-    
-    // Create a screen-sized scroll view and add it to the window
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
-    scrollView.pagingEnabled = YES;
-    [self.window addSubview:scrollView];
-    
-    // Create a super-sized hypnosis view and add it to the scroll view
-//    BWHHypnosisView *hyponosisView = [[BWHHypnosisView alloc] initWithFrame:bigRect];
-    // Create a screen-sized hypnosis view and add it to the scroll view
-    BWHHypnosisView *hyponosisView = [[BWHHypnosisView alloc] initWithFrame:screenRect];
-    [scrollView addSubview:hyponosisView];
-    
-    // Add a second screen-sized hypnosis view just off screen to the right
-    screenRect.origin.x += screenRect.size.width;
-    BWHHypnosisView *anotherView = [[BWHHypnosisView alloc] initWithFrame:screenRect];
-    [scrollView addSubview:anotherView];
-    
-    // Tell the scroll view how big its content area is
-    scrollView.contentSize = bigRect.size;
+    // Look in the appBundle for the file BWHReminderViewController.xib
+    BWHReminderViewController *rvc = [[BWHReminderViewController alloc] initWithNibName:@"BWHReminderViewController" bundle:appBundle];
     
     
     
-    
+//    self.window.rootViewController = hvc;
+    self.window.rootViewController = rvc;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    
     
     
     return YES;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:BWHHypnosisView.h">
+   </FileRef>
+   <FileRef
+      location = "group:BWHHypnosisView.m">
+   </FileRef>
+   <FileRef
+      location = "group:../HypnoNerd/BWHHypnosisViewController.h">
+   </FileRef>
+   <FileRef
+      location = "group:../HypnoNerd/BWHHypnosisViewController.m">
+   </FileRef>
+   <FileRef
+      location = "self:HypnoNerd.xcodeproj">
+   </FileRef>
+</Workspace>
