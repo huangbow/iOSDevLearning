@@ -18,7 +18,7 @@
 
 - (IBAction)addReminder:(id)sender
 {
-    NSData *date = self.dataPicker.date;
+    NSDate *date = self.dataPicker.date;
     NSLog(@"Setting a reminder for %@", date);
 }
 

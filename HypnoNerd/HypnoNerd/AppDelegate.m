@@ -20,6 +20,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    
+    
     BWHHypnosisViewController *hvc = [[BWHHypnosisViewController alloc] init];
     
     // This will get a pointer to an object that represents the app bundle
@@ -29,9 +32,14 @@
     BWHReminderViewController *rvc = [[BWHReminderViewController alloc] initWithNibName:@"BWHReminderViewController" bundle:appBundle];
     
     
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController.viewControllers = @[hvc,rvc];
+    
+    
     
 //    self.window.rootViewController = hvc;
-    self.window.rootViewController = rvc;
+//    self.window.rootViewController = rvc;
+    self.window.rootViewController = tabBarController;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
