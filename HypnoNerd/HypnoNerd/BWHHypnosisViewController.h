@@ -12,5 +12,6 @@
 @interface BWHHypnosisViewController : UIViewController
 
 //@property (nonatomic, strong) UIView *view;
+//@property (nonatomic, weak) IBOutlet UISegmentedControl *segControl;
 
 @end

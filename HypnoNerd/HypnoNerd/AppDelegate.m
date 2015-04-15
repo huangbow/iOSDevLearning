@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "BWHHypnosisViewController.h"
 #import "BWHReminderViewController.h"
+#import "BWQuizViewController.h"
 
 @interface AppDelegate ()
 
@@ -29,11 +30,20 @@
     NSBundle *appBundle = [NSBundle mainBundle];
     
     // Look in the appBundle for the file BWHReminderViewController.xib
-    BWHReminderViewController *rvc = [[BWHReminderViewController alloc] initWithNibName:@"BWHReminderViewController" bundle:appBundle];
+//    BWHReminderViewController *rvc = [[BWHReminderViewController alloc] initWithNibName:@"BWHReminderViewController" bundle:appBundle];
+    
+    // This *init* method is to send *nil* to bundle,
+    // which means the application will search a NIB with the class name
+    BWHReminderViewController *rvc = [[BWHReminderViewController alloc] init];
+    
+    
+    // Bronze Challenge
+    // Add Quiz view
+    BWQuizViewController *qvc = [[BWQuizViewController alloc] initWithNibName:@"BWQuizViewController" bundle:appBundle];
     
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    tabBarController.viewControllers = @[hvc,rvc];
+    tabBarController.viewControllers = @[hvc,rvc, qvc];
     
     
     
@@ -43,6 +53,12 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    // Register for local notification
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge
+                                                                                                              categories:nil]];
+    }
     
     
     return YES;

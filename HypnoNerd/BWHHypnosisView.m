@@ -8,11 +8,11 @@
 
 #import "BWHHypnosisView.h"
 
-@interface BWHHypnosisView ()
-
-@property (nonatomic, strong) UIColor *circleColor;
-
-@end
+//@interface BWHHypnosisView ()
+//
+//
+//
+//@end
 
 @implementation BWHHypnosisView
 
@@ -152,6 +152,8 @@
 - (void)setCircleColor:(UIColor *)circleColor
 {
     _circleColor = circleColor;
+    //notify application to refresh
+    // coz of lazy loading
     [self setNeedsDisplay];
 }
 

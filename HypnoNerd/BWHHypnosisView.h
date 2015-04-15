@@ -10,5 +10,7 @@
 
 @interface BWHHypnosisView : UIView
 
+@property (nonatomic, strong) UIColor *circleColor;
+
 @end
 

@@ -17,6 +17,12 @@
 		FA4FAB6C1ADB5D5500833922 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA4FAB6B1ADB5D5500833922 /* Images.xcassets */; };
 		FA4FAB6F1ADB5D5500833922 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4FAB6D1ADB5D5500833922 /* LaunchScreen.xib */; };
 		FA4FAB7B1ADB5D5500833922 /* HypnoNerdTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FAB7A1ADB5D5500833922 /* HypnoNerdTests.m */; };
+		FA9762D11ADE11F900B31249 /* BWQuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9762CF1ADE11F900B31249 /* BWQuizViewController.m */; };
+		FA9762D21ADE11F900B31249 /* BWQuizViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9762D01ADE11F900B31249 /* BWQuizViewController.xib */; };
+		FABF9B341ADDA2A40076A4D1 /* Hypno.png in Resources */ = {isa = PBXBuildFile; fileRef = FABF9B301ADDA2A40076A4D1 /* Hypno.png */; };
+		FABF9B351ADDA2A40076A4D1 /* Hypno@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FABF9B311ADDA2A40076A4D1 /* Hypno@2x.png */; };
+		FABF9B361ADDA2A40076A4D1 /* Time.png in Resources */ = {isa = PBXBuildFile; fileRef = FABF9B321ADDA2A40076A4D1 /* Time.png */; };
+		FABF9B371ADDA2A40076A4D1 /* Time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FABF9B331ADDA2A40076A4D1 /* Time@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +55,13 @@
 		FA4FAB741ADB5D5500833922 /* HypnoNerdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HypnoNerdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4FAB791ADB5D5500833922 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA4FAB7A1ADB5D5500833922 /* HypnoNerdTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HypnoNerdTests.m; sourceTree = "<group>"; };
+		FA9762CE1ADE11F900B31249 /* BWQuizViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWQuizViewController.h; sourceTree = "<group>"; };
+		FA9762CF1ADE11F900B31249 /* BWQuizViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWQuizViewController.m; sourceTree = "<group>"; };
+		FA9762D01ADE11F900B31249 /* BWQuizViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BWQuizViewController.xib; sourceTree = "<group>"; };
+		FABF9B301ADDA2A40076A4D1 /* Hypno.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hypno.png; sourceTree = "<group>"; };
+		FABF9B311ADDA2A40076A4D1 /* Hypno@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Hypno@2x.png"; sourceTree = "<group>"; };
+		FABF9B321ADDA2A40076A4D1 /* Time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Time.png; sourceTree = "<group>"; };
+		FABF9B331ADDA2A40076A4D1 /* Time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Time@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +85,13 @@
 		FA4FAB521ADB5D5500833922 = {
 			isa = PBXGroup;
 			children = (
+				FABF9B301ADDA2A40076A4D1 /* Hypno.png */,
+				FABF9B311ADDA2A40076A4D1 /* Hypno@2x.png */,
+				FABF9B321ADDA2A40076A4D1 /* Time.png */,
+				FABF9B331ADDA2A40076A4D1 /* Time@2x.png */,
+				FA9762CE1ADE11F900B31249 /* BWQuizViewController.h */,
+				FA9762CF1ADE11F900B31249 /* BWQuizViewController.m */,
+				FA9762D01ADE11F900B31249 /* BWQuizViewController.xib */,
 				FA2295811ADB64C4001D90B8 /* BWHReminderViewController.h */,
 				FA2295821ADB64C4001D90B8 /* BWHReminderViewController.m */,
 				FA2295841ADB65DD001D90B8 /* BWHReminderViewController.xib */,
@@ -214,8 +234,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FABF9B371ADDA2A40076A4D1 /* Time@2x.png in Resources */,
+				FABF9B361ADDA2A40076A4D1 /* Time.png in Resources */,
+				FA9762D21ADE11F900B31249 /* BWQuizViewController.xib in Resources */,
 				FA2295851ADB65DD001D90B8 /* BWHReminderViewController.xib in Resources */,
 				FA4FAB6F1ADB5D5500833922 /* LaunchScreen.xib in Resources */,
+				FABF9B341ADDA2A40076A4D1 /* Hypno.png in Resources */,
+				FABF9B351ADDA2A40076A4D1 /* Hypno@2x.png in Resources */,
 				FA4FAB6C1ADB5D5500833922 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +261,7 @@
 			files = (
 				FA2295801ADB6174001D90B8 /* BWHHypnosisViewController.m in Sources */,
 				FA22957A1ADB60A4001D90B8 /* BWHHypnosisView.m in Sources */,
+				FA9762D11ADE11F900B31249 /* BWQuizViewController.m in Sources */,
 				FA2295831ADB64C4001D90B8 /* BWHReminderViewController.m in Sources */,
 				FA4FAB671ADB5D5500833922 /* ViewController.m in Sources */,
 				FA4FAB641ADB5D5500833922 /* AppDelegate.m in Sources */,
