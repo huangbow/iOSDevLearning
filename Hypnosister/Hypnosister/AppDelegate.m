@@ -10,8 +10,8 @@
 #import "BWHHypnosisView.h"
 
 
-@interface AppDelegate ()
-
+@interface AppDelegate () <UIScrollViewDelegate>
+@property (nonatomic, strong) BWHHypnosisView *hyponosisView;
 @end
 
 @implementation AppDelegate
@@ -50,23 +50,26 @@
     CGRect screenRect = self.window.bounds;
     CGRect bigRect = screenRect;
     bigRect.size.width *= 2.0;
-//    bigRect.size.height *= 2.0;
+    bigRect.size.height *= 2.0;
     
     // Create a screen-sized scroll view and add it to the window
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
-    scrollView.pagingEnabled = YES;
+    
+//    scrollView.pagingEnabled = YES;
+    
+    
     [self.window addSubview:scrollView];
     
     // Create a super-sized hypnosis view and add it to the scroll view
 //    BWHHypnosisView *hyponosisView = [[BWHHypnosisView alloc] initWithFrame:bigRect];
     // Create a screen-sized hypnosis view and add it to the scroll view
-    BWHHypnosisView *hyponosisView = [[BWHHypnosisView alloc] initWithFrame:screenRect];
-    [scrollView addSubview:hyponosisView];
+    self.hyponosisView = [[BWHHypnosisView alloc] initWithFrame:screenRect];
+    [scrollView addSubview:self.hyponosisView];
     
     // Add a second screen-sized hypnosis view just off screen to the right
-    screenRect.origin.x += screenRect.size.width;
-    BWHHypnosisView *anotherView = [[BWHHypnosisView alloc] initWithFrame:screenRect];
-    [scrollView addSubview:anotherView];
+//    screenRect.origin.x += screenRect.size.width;
+//    BWHHypnosisView *anotherView = [[BWHHypnosisView alloc] initWithFrame:screenRect];
+//    [scrollView addSubview:anotherView];
     
     // Tell the scroll view how big its content area is
     scrollView.contentSize = bigRect.size;
@@ -79,9 +82,22 @@
     [self.window makeKeyAndVisible];
     
     
+//    UIPinchGestureRecognizer *pinchGest = [[UIPinchGestureRecognizer alloc] initWithTarget:scrollView action:@selector(viewForZoomingInScrollView:)];
     
+    scrollView.minimumZoomScale = 1.0;
+    scrollView.maximumZoomScale = 3.6;
     
+    //MUST HAVE THIS CODE, EVEN IF ALREADY SET UP DELEGATION!!!!!!
+    scrollView.delegate = self;
     return YES;
+}
+
+-(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    
+    return self.hyponosisView;
+    
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
