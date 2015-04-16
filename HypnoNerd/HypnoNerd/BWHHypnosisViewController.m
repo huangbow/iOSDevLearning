@@ -51,17 +51,23 @@
     // Set it as *the* view of this view controller
     self.view = self.backgroundView;
     
+    self.segControl = [[UISegmentedControl alloc] initWithItems:_colorArr];
+    self.segControl.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2-80, 100, 160, 30);
+    self.segControl.backgroundColor = [UIColor whiteColor];
+    [self.segControl addTarget:self action:@selector(colorChange) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.segControl];
+    
 }
 
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.segControl = [[UISegmentedControl alloc] initWithItems:_colorArr];
-    self.segControl.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2-80, 100, 160, 30);
-    self.segControl.backgroundColor = [UIColor whiteColor];
-    [self.segControl addTarget:self action:@selector(colorChange) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:self.segControl];
+//    self.segControl = [[UISegmentedControl alloc] initWithItems:_colorArr];
+//    self.segControl.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2-80, 100, 160, 30);
+//    self.segControl.backgroundColor = [UIColor whiteColor];
+//    [self.segControl addTarget:self action:@selector(colorChange) forControlEvents:UIControlEventValueChanged];
+//    [self.view addSubview:self.segControl];
     
     NSLog(@"HypnosisViewController is loaded!");
 }
