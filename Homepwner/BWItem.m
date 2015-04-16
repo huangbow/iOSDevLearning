@@ -90,7 +90,10 @@
     NSLog(@"Destroyed: %@", self);
 }
 
-
+-(NSString *)description
+{
+    return [[NSString alloc] initWithFormat:@"%@ (%@): Worth: $%d",_itemName,_serialNumber,_valueInDollars];
+}
 
 
 //-(void)setContainedItem:(BWItem *)item

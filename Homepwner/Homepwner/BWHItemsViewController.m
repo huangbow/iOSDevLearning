@@ -12,6 +12,9 @@
 
 @interface BWHItemsViewController () <UITableViewDataSource>
 
+@property (nonatomic,strong) NSMutableArray *itemsValueMoreThanFifty;
+@property (nonatomic, strong) NSMutableArray *itemsValueNoMoreThanFifty;
+
 @end
 
 @implementation BWHItemsViewController
@@ -21,9 +24,14 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             [[BWHItemStore sharedStore] createItem];
         }
+        [self countObjectInUWItem];
+//        UIView *background = [[UIView alloc] initWithFrame:[self.tableView bounds]];
+        UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.jpg"]];
+        self.tableView.backgroundView = bgImageView;
+        
     }
     return self;
     
@@ -31,8 +39,7 @@
 
 -(instancetype)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:UITableViewStylePlain];
-    return self;
+    return [self init];
 }
 
 
@@ -43,10 +50,34 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+-(void)countObjectInUWItem
+{
+    _itemsValueMoreThanFifty = [[NSMutableArray alloc] init];
+    _itemsValueNoMoreThanFifty = [[NSMutableArray alloc] init];
+    NSArray *items = [[BWHItemStore sharedStore] allItems];
+    for (int i=0; i < [items count]; i++) {
+        if ([items[i] valueInDollars] > 70) {
+            [self.itemsValueMoreThanFifty addObject:items[i]];
+        }else{
+            [self.itemsValueNoMoreThanFifty addObject:items[i]];
+        }
+    }
+    
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[BWHItemStore sharedStore] allItems] count];
+    if (section==0) {
+        return [self.itemsValueMoreThanFifty count];
+    }else{
+        return [self.itemsValueNoMoreThanFifty count];
+    }
+//    return [[[BWHItemStore sharedStore] allItems] count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -60,10 +91,24 @@
     // Set the text on the cell with the description of the item
     // that is at the nth inde of items, where n = row this cell
     // will appear in on the tableview
-    NSArray *items = [[BWHItemStore sharedStore] allItems];
-    BWItem *item = items[indexPath.row];
+//    NSArray *items = [[BWHItemStore sharedStore] allItems];
+//    BWItem *item = items[indexPath.row];
+//    
+//    cell.textLabel.text = [item description];
     
-    cell.textLabel.text = [item description];
+    tableView.rowHeight = 60;
+    if (indexPath.section==0) {
+        cell.textLabel.text = [self.itemsValueMoreThanFifty[indexPath.row] description];
+        cell.textLabel.font = [UIFont systemFontOfSize:20.0];
+    }else{
+        if ([self.itemsValueNoMoreThanFifty count] - indexPath.row <2) {
+            cell.textLabel.text = @"No more items!";
+            tableView.rowHeight = 44;
+            return cell;
+        }
+        cell.textLabel.font = [UIFont systemFontOfSize:20.0];
+        cell.textLabel.text = [self.itemsValueNoMoreThanFifty[indexPath.row] description];
+    }
     
     return cell;
 }
