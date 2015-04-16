@@ -16,10 +16,31 @@
 
 @implementation BWHReminderViewController
 
+
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self) {
+        self.tabBarItem.title = @"Reminder";
+        self.tabBarItem.image = [UIImage imageNamed:@"Time.png"];
+    }
+    
+    return self;
+}
+
+
 - (IBAction)addReminder:(id)sender
 {
     NSDate *date = self.dataPicker.date;
     NSLog(@"Setting a reminder for %@", date);
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.dataPicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:60];
 }
 
 @end

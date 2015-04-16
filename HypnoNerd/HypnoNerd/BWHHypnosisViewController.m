@@ -11,8 +11,19 @@
 
 @implementation BWHHypnosisViewController
 
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self) {
+        self.tabBarItem.title = @"Hypnosize";
+        self.tabBarItem.image = [UIImage imageNamed:@"Hypno.png"];
+    }
+    return self;
+}
 
--(void)viewDidLoad
+
+-(void)loadView
 {
     // Create a view
     CGRect frame = [UIScreen mainScreen].bounds;
