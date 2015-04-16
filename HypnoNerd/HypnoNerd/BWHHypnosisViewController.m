@@ -31,6 +31,16 @@
     
     // Set it as *the* view of this view controller
     self.view = backgroundView;
+    UIButton *b = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    b.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:b];
+    
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
 }
 
 @end
