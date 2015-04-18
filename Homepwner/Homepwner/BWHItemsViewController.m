@@ -63,11 +63,19 @@
     [self.tableView setTableHeaderView:header];
 }
 
-
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[BWHItemStore sharedStore] allItems] count];
+    if (section==1) {
+        return 1;
+    }else{
+        return [[[BWHItemStore sharedStore] allItems] count];
+    }
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -81,11 +89,14 @@
     // Set the text on the cell with the description of the item
     // that is at the nth inde of items, where n = row this cell
     // will appear in on the tableview
-    NSArray *items = [[BWHItemStore sharedStore] allItems];
-    BWItem *item = items[indexPath.row];
-    cell.textLabel.text = [item description];
     
-    
+    if (indexPath.section == 1) {
+        cell.textLabel.text = @"No more items!";
+    }else{
+        NSArray *items = [[BWHItemStore sharedStore] allItems];
+        BWItem *item = items[indexPath.row];
+        cell.textLabel.text = [item description];
+    }
     return cell;
 }
 
@@ -98,6 +109,8 @@
         BWItem *item = items[indexPath.row];
         [[BWHItemStore sharedStore] removeItem:item];
         
+        
+        
         // Also remove that row from the table view with an animation
         [tableView deleteRowsAtIndexPaths:@[indexPath]
                          withRowAnimation:UITableViewRowAnimationFade];
@@ -108,7 +121,34 @@
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
     [[BWHItemStore sharedStore] moveItemAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+    
 }
+
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"Remove";
+}
+
+
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        return NO;
+    }
+    return YES;
+}
+
+
+-(NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+    if (proposedDestinationIndexPath.section == 1) {
+        return [NSIndexPath indexPathForRow:sourceIndexPath.row inSection:sourceIndexPath.section];
+    }
+    return proposedDestinationIndexPath;
+} 
+
 
 -(IBAction)addNewItem:(id)sender
 {
