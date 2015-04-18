@@ -25,7 +25,15 @@
     BWHItemsViewController *itemsViewController = [[BWHItemsViewController alloc] init];
     
     // Place BWHItemsViewController's table view in the window hierarchy
-    self.window.rootViewController = itemsViewController;
+//    self.window.rootViewController = itemsViewController;
+    
+    // Create an instance of a UINavigationController
+    // its stack contains only itemsViewController
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:itemsViewController];
+    
+    // Place navigation controller's view in the window hierarchy
+    self.window.rootViewController = navController;
+    
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

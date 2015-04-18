@@ -9,10 +9,11 @@
 #import "BWHItemsViewController.h"
 #import "BWItem.h"
 #import "BWHItemStore.h"
+#import "BWHDetailViewController.h"
 
 @interface BWHItemsViewController () <UITableViewDataSource>
 
-@property (nonatomic, strong) IBOutlet UIView *headerView;
+//@property (nonatomic, strong) IBOutlet UIView *headerView;
 
 @end
 
@@ -25,9 +26,20 @@
     if (self) {
 //        for (int i = 0; i < 10; i++) {
 //            [[BWHItemStore sharedStore] createItem];
-//        }
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Homepwner";
         
-    }
+        // Create a new bar button item that will send
+        // addNewItem: to BWHItemsViewController
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
+        
+        // Set this bar button item as the right item in the navigationItem
+        navItem.rightBarButtonItem =bbi;
+        
+        navItem.leftBarButtonItem = self.editButtonItem;
+        
+        }
+    
     return self;
     
 }
@@ -39,18 +51,25 @@
 
 
 
--(UIView *)headerView
+//-(UIView *)headerView
+//{
+//    // If you have not load headerView yet...
+//    if (!_headerView) {
+//        
+//        // Load HeaderView.xib
+//        [[NSBundle mainBundle] loadNibNamed:@"HeaderView"
+//                                      owner:self
+//                                    options:nil];
+//    }
+//    
+//    return _headerView;
+//}
+
+-(void)viewWillAppear:(BOOL)animated
 {
-    // If you have not load headerView yet...
-    if (!_headerView) {
-        
-        // Load HeaderView.xib
-        [[NSBundle mainBundle] loadNibNamed:@"HeaderView"
-                                      owner:self
-                                    options:nil];
-    }
+    [super viewWillAppear:animated];
     
-    return _headerView;
+    [self.tableView reloadData];
 }
 
 -(void)viewDidLoad
@@ -59,8 +78,8 @@
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     
-    UIView *header = self.headerView;
-    [self.tableView setTableHeaderView:header];
+//    UIView *header = self.headerView;
+//    [self.tableView setTableHeaderView:header];
 }
 
 
@@ -127,25 +146,45 @@
     
 }
 
--(IBAction)toggleEditingMode:(id)sender
+//-(IBAction)toggleEditingMode:(id)sender
+//{
+//    // If you are currently in editing mode...
+//    if (self.isEditing) {
+//        
+//        // Change text of button to inform user of state
+//        [sender setTitle:@"Edit" forState:UIControlStateNormal];
+//        
+//        // Turn off editing mode
+//        [self setEditing:NO animated:YES];
+//        
+//    }else{
+//        // Change text of button to inform user of state
+//        [sender setTitle:@"Done" forState:UIControlStateNormal];
+//        
+//        // Enter editing mode
+//        [self setEditing:YES animated:YES];
+//    }
+//    
+//}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // If you are currently in editing mode...
-    if (self.isEditing) {
-        
-        // Change text of button to inform user of state
-        [sender setTitle:@"Edit" forState:UIControlStateNormal];
-        
-        // Turn off editing mode
-        [self setEditing:NO animated:YES];
-        
-    }else{
-        // Change text of button to inform user of state
-        [sender setTitle:@"Done" forState:UIControlStateNormal];
-        
-        // Enter editing mode
-        [self setEditing:YES animated:YES];
-    }
+    return @"Remove";
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BWHDetailViewController *detailViewController = [[BWHDetailViewController alloc] init];
     
+    NSArray *items = [[BWHItemStore sharedStore] allItems];
+    BWItem *selectedItem = items[indexPath.row];
+    
+    // Give detail view controller a pointer to the item object in row
+    detailViewController.item = selectedItem;
+    
+    
+    // Push it onto the top of the navigation controller's stack
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 
