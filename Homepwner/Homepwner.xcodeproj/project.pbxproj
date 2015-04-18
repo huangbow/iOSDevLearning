@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FACA0A2D1AE0775100923579 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACA0A2C1AE0775100923579 /* HeaderView.xib */; };
 		FAE14C331ADF6830006AC103 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE14C321ADF6830006AC103 /* main.m */; };
 		FAE14C361ADF6830006AC103 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE14C351ADF6830006AC103 /* AppDelegate.m */; };
 		FAE14C391ADF6830006AC103 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE14C381ADF6830006AC103 /* ViewController.m */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FACA0A2C1AE0775100923579 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		FAE14C2D1ADF6830006AC103 /* Homepwner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homepwner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE14C311ADF6830006AC103 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAE14C321ADF6830006AC103 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				FAE14C5A1ADF6C3B006AC103 /* BWItem.m */,
 				FAE14C561ADF6A23006AC103 /* BWHItemsViewController.h */,
 				FAE14C571ADF6A23006AC103 /* BWHItemsViewController.m */,
+				FACA0A2C1AE0775100923579 /* HeaderView.xib */,
 				FAE14C2F1ADF6830006AC103 /* Homepwner */,
 				FAE14C491ADF6830006AC103 /* HomepwnerTests */,
 				FAE14C2E1ADF6830006AC103 /* Products */,
@@ -211,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FACA0A2D1AE0775100923579 /* HeaderView.xib in Resources */,
 				FAE14C411ADF6830006AC103 /* LaunchScreen.xib in Resources */,
 				FAE14C3E1ADF6830006AC103 /* Images.xcassets in Resources */,
 			);
