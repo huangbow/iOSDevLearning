@@ -79,6 +79,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // Clear first responder
+    [self.view endEditing:YES];
+}
+
 /*
 #pragma mark - Navigation
 
