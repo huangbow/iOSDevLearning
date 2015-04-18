@@ -147,7 +147,7 @@
         return [NSIndexPath indexPathForRow:sourceIndexPath.row inSection:sourceIndexPath.section];
     }
     return proposedDestinationIndexPath;
-} 
+}
 
 
 -(IBAction)addNewItem:(id)sender
