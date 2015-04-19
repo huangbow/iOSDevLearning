@@ -8,6 +8,7 @@
 
 #import "BWHDetailViewController.h"
 #import "BWItem.h"
+#import "BWHDateChangeViewController.h"
 
 @interface BWHDetailViewController ()
 
@@ -85,6 +86,15 @@
 {
     // Clear first responder
     [self.view endEditing:YES];
+}
+
+
+-(IBAction)changeDate:(id)sender
+{
+    BWHDateChangeViewController *dvc = [[BWHDateChangeViewController alloc] init];
+    dvc.item = self.item;
+    [self.navigationController pushViewController:dvc animated:YES];
+    
 }
 
 /*

@@ -95,6 +95,11 @@
     return [[NSString alloc] initWithFormat:@"%@ (%@): Worth: $%d",_itemName,_serialNumber,_valueInDollars];
 }
 
+-(void)setDateCreated:(NSDate *)dateCreated
+{
+    _dateCreated = dateCreated;
+}
+
 
 //-(void)setContainedItem:(BWItem *)item
 //{

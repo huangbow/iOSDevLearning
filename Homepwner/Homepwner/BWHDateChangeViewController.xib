@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BWHDateChangeViewController">
+            <connections>
+                <outlet property="datePicker" destination="SAL-S9-tJF" id="WG5-v4-mJx"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="SAL-S9-tJF">
+                    <rect key="frame" x="0.0" y="167" width="414" height="162"/>
+                    <date key="date" timeIntervalSinceReferenceDate="451093510.63758397">
+                        <!--2015-04-18 23:45:10 +0000-->
+                    </date>
+                </datePicker>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="SAL-S9-tJF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="167" id="JJs-ST-LAk"/>
+                <constraint firstAttribute="trailing" secondItem="SAL-S9-tJF" secondAttribute="trailing" id="OaH-cb-6jh"/>
+                <constraint firstItem="SAL-S9-tJF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yNu-aJ-yEt"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+        </view>
+    </objects>
+</document>
