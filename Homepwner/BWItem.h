@@ -27,6 +27,7 @@
 @property (copy, nonatomic) NSString *serialNumber;
 @property (nonatomic) int valueInDollars;
 @property (readonly, strong, nonatomic) NSDate *dateCreated;
+@property (nonatomic, copy) NSString *itemKey;
 
 
 

@@ -8,13 +8,16 @@
 
 #import "BWHDetailViewController.h"
 #import "BWItem.h"
+#import "BWHImageStore.h"
 
-@interface BWHDetailViewController ()
+@interface BWHDetailViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *serialNumberField;
 @property (weak, nonatomic) IBOutlet UITextField *valueField;
 @property (weak, nonatomic) IBOutlet UILabel *dataLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @end
 
@@ -52,6 +55,15 @@
     
     // Use filtered NSdate object to set dateLabel contents
     self.dataLabel.text = [dateFormatter stringFromDate:item.dateCreated];
+    
+    NSString *itemKey = self.item.itemKey;
+    
+    // Get the image for its image key from the image store
+    UIImage *imageToDisplay = [[BWHImageStore sharedStore] imageForKey:itemKey];
+    
+    // Use that image to put on the screen in the imageView
+    self.imageView.image = imageToDisplay;
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -81,11 +93,61 @@
 
 
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    // Clear first responder
+//    [self.view endEditing:YES];
+//}
+
+
+- (IBAction)takePicture:(id)sender
 {
-    // Clear first responder
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    // If the device has a camera, take a picture, otherwise,
+    // just pick from photo library
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    imagePicker.delegate = self;
+    
+    // Place image picker on the screen
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // Get picked image from info dictionary
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    
+    // Store the image in the BWHImageStore for this key
+    [[BWHImageStore sharedStore] setImage:image forkey:self.item.itemKey];
+    
+    // Put that image onto the screen in our image view
+    self.imageView.image = image;
+    
+    // Take image picker off the screen -
+    // you must call this dismiss method
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
+- (IBAction)backgroundTapped:(id)sender {
     [self.view endEditing:YES];
 }
+
+
 
 /*
 #pragma mark - Navigation

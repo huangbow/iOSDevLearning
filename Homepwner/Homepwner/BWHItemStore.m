@@ -8,6 +8,7 @@
 
 #import "BWHItemStore.h"
 #import "BWItem.h"
+#import "BWHImageStore.h"
 
 @interface BWHItemStore ()
 
@@ -66,6 +67,10 @@
 
 -(void)removeItem:(BWItem *)item
 {
+    NSString *key = item.itemKey;
+    
+    [[BWHImageStore sharedStore] deleteImageForKey:key];
+    
     [self.privateItems removeObjectIdenticalTo:item];
 }
 
