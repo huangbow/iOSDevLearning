@@ -84,6 +84,15 @@
                         </barButtonItem>
                     </items>
                 </toolbar>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f9X-ma-VT1">
+                    <rect key="frame" x="164" y="565" width="40" height="30"/>
+                    <state key="normal" title="Clean">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cleanImage:" destination="-1" eventType="touchUpInside" id="cep-DL-E0G"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -104,11 +113,13 @@
                 <constraint firstItem="SBv-M6-Scj" firstAttribute="leading" secondItem="cuC-UZ-VND" secondAttribute="leading" id="fvm-sw-8BV"/>
                 <constraint firstItem="PaL-Rd-Epw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="gd2-Sq-T2O"/>
                 <constraint firstItem="uA5-4E-ZUX" firstAttribute="leading" secondItem="UX1-6V-drh" secondAttribute="leading" id="jEW-I4-aUW"/>
+                <constraint firstItem="f9X-ma-VT1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="164" id="jKG-Np-G3r"/>
                 <constraint firstItem="SBv-M6-Scj" firstAttribute="baseline" secondItem="uA5-4E-ZUX" secondAttribute="baseline" id="kfD-5I-8xi"/>
                 <constraint firstItem="51K-ls-2pY" firstAttribute="trailing" secondItem="SBv-M6-Scj" secondAttribute="trailing" id="kfq-b7-Q1x"/>
                 <constraint firstItem="51K-ls-2pY" firstAttribute="top" secondItem="SBv-M6-Scj" secondAttribute="bottom" constant="13" id="m8y-e6-gfo"/>
                 <constraint firstAttribute="bottom" secondItem="zus-lW-3WQ" secondAttribute="bottom" id="wsM-zJ-Cpy"/>
                 <constraint firstItem="cuC-UZ-VND" firstAttribute="trailing" secondItem="SBv-M6-Scj" secondAttribute="trailing" id="xA9-Ed-SfQ"/>
+                <constraint firstItem="f9X-ma-VT1" firstAttribute="top" secondItem="PaL-Rd-Epw" secondAttribute="bottom" constant="8" symbolic="YES" id="y7W-Im-QLG"/>
                 <constraint firstItem="cuC-UZ-VND" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="95" id="yNs-6A-vSO"/>
                 <constraint firstItem="zus-lW-3WQ" firstAttribute="centerX" secondItem="PaL-Rd-Epw" secondAttribute="centerX" id="yVR-tQ-szh"/>
             </constraints>

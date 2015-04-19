@@ -114,6 +114,9 @@
     
     imagePicker.delegate = self;
     
+    // Allow editing
+    imagePicker.allowsEditing = YES;
+    
     // Place image picker on the screen
     [self presentViewController:imagePicker animated:YES completion:NULL];
 }
@@ -122,7 +125,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     // Get picked image from info dictionary
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    UIImage *image = info[UIImagePickerControllerEditedImage];
     
     
     // Store the image in the BWHImageStore for this key
@@ -147,6 +150,12 @@
     [self.view endEditing:YES];
 }
 
+- (IBAction)cleanImage:(id)sender {
+    if (self.imageView.image) {
+        self.imageView.image = nil;
+        [[BWHImageStore sharedStore] deleteImageForKey:self.item.itemKey];
+    }
+}
 
 
 /*
