@@ -14,6 +14,8 @@
 //@property (nonatomic, strong) BWHLine *currentLine;
 @property (nonatomic, strong) NSMutableDictionary *lineInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedLines;
+@property (nonatomic, strong) NSMutableArray *circleInProgress;
+@property (nonatomic, strong) NSMutableArray *finishedCircles;
 
 @end
 
@@ -49,8 +51,9 @@
 - (void)drawRect:(CGRect)rect
 {
     // Draw finished lines in black
-    [[UIColor blackColor] set];
+//    [[UIColor blackColor] set];
     for (BWHLine *line in self.finishedLines) {
+        [[line lineColor] set];
         [self strokeLine:line];
     }
     
@@ -73,16 +76,27 @@
     // Let's put in a log statement to see the order of events
     NSLog(@"%@", NSStringFromSelector(_cmd));
     
-    for (UITouch *t in touches) {
-        CGPoint location = [t locationInView:self];
+    if ([touches count] == 2) {
         
-        BWHLine *line = [[BWHLine alloc] init];
-        line.begin = location;
-        line.end = location;
+        for (UITouch *t in touches) {
+            CGPoint location = [t locationInView:self];
+            
+            [self.circleInProgress addObject:location];
+            
+        }
         
-        NSValue *key = [NSValue valueWithNonretainedObject:t];
-        self.lineInProgress[key] = line;
-        
+    } else {
+        for (UITouch *t in touches) {
+            CGPoint location = [t locationInView:self];
+            
+            BWHLine *line = [[BWHLine alloc] init];
+            line.begin = location;
+            line.end = location;
+            
+            NSValue *key = [NSValue valueWithNonretainedObject:t];
+            self.lineInProgress[key] = line;
+            
+        }
     }
     
     [self setNeedsDisplay];

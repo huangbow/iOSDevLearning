@@ -11,9 +11,10 @@
 
 @implementation BWHDrawViewController
 
-
 -(void)loadView
 {
+    
+    
     self.view = [[BWHDrawView alloc] initWithFrame:CGRectZero];
 }
 
