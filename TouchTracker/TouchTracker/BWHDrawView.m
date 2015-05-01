@@ -8,6 +8,7 @@
 
 #import "BWHDrawView.h"
 #import "BWHLine.h"
+#import "BWHCircle.h"
 #import <math.h>
 
 @interface BWHDrawView ()
@@ -15,7 +16,7 @@
 //@property (nonatomic, strong) BWHLine *currentLine;
 @property (nonatomic, strong) NSMutableDictionary *lineInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedLines;
-@property (nonatomic, strong) NSMutableDictionary *circleInProgress;
+@property (nonatomic, strong) BWHCircle *circleInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedCircles;
 
 @end
@@ -30,6 +31,8 @@
     if (self) {
         self.lineInProgress = [[NSMutableDictionary alloc] init];
         self.finishedLines = [[NSMutableArray alloc] init];
+        self.finishedCircles = [[NSMutableArray alloc] init];
+        self.circleInProgress = [[BWHCircle alloc] init];
         self.backgroundColor = [UIColor grayColor];
         self.multipleTouchEnabled = YES;
     }
@@ -49,18 +52,15 @@
     [bp stroke];
 }
 
-- (void)strokeCircle:(CGPoint)p1 point:(CGPoint)p2
+- (void)strokeCircle:(BWHCircle *)circle
 {
-    CGPoint midPoint;
-    midPoint.x = (p1.x + p2.x) / 2;
-    midPoint.y = (p1.y + p2.y) / 2;
-    CGFloat radius = (sqrtf((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))) / 2.0;
-    UIBezierPath *bp = [UIBezierPath bezierPathWithArcCenter:midPoint
-                                                      radius:radius
+    UIBezierPath *bp = [UIBezierPath bezierPathWithArcCenter:circle.cen
+                                                      radius:circle.radius
                                                   startAngle:0.0
-                                                    endAngle:M_PI_2
+                                                    endAngle:2*M_PI
                                                    clockwise:YES];
-    bp.lineWidth = 10;
+    bp.lineWidth = 5;
+    [bp stroke];
     
 }
 
@@ -78,14 +78,15 @@
         [self strokeLine:self.lineInProgress[key]];
     }
     
-    [[UIColor greenColor] set];
+    [[UIColor redColor] set];
     if (self.circleInProgress) {
-        NSArray *keys = [self.circleInProgress allKeys];
-        CGPoint p1 = [self.circleInProgress[keys[0]] CGPointValue];
-        CGPoint p2 = [self.circleInProgress[keys[1]] CGPointValue];
-        [self strokeCircle:p1 point:p2];
+        [self strokeCircle:self.circleInProgress];
     }
     
+    [[UIColor greenColor] set];
+    for (BWHCircle *c in self.finishedCircles) {
+        [self strokeCircle:c];
+    }
     
     
 //    if (self.currentLine) {
@@ -102,13 +103,16 @@
     NSLog(@"%@", NSStringFromSelector(_cmd));
     
     if ([touches count] == 2) {
-        
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
         for (UITouch *t in touches) {
-            CGPoint location = [t locationInView:self];
-            NSValue *key = [NSValue valueWithNonretainedObject:t];
-            self.circleInProgress[key] = [NSValue valueWithCGPoint:location];
+            [temp addObject:t];
         }
-        
+        CGPoint p1 = [temp[0] locationInView:self];
+        CGPoint p2 = [temp[1] locationInView:self];
+        BWHCircle *circle = [[BWHCircle alloc] init];
+        circle.cen= CGPointMake((p1.x+p2.x)/2.0, (p1.y+p2.y)/2.0);
+        circle.radius = (sqrtf((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))) / 2.0;
+        self.circleInProgress = circle;
     } else {
         for (UITouch *t in touches) {
             CGPoint location = [t locationInView:self];
@@ -145,10 +149,17 @@
     NSLog(@"%@", NSStringFromSelector(_cmd));
     
     if ([touches count] == 2) {
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
         for (UITouch *t in touches) {
-            NSValue *key = [NSValue valueWithNonretainedObject:t];
-            self.circleInProgress[key] = [NSValue valueWithCGPoint:[t locationInView:self]];
+            [temp addObject:t];
         }
+        CGPoint p1 = [temp[0] locationInView:self];
+        CGPoint p2 = [temp[1] locationInView:self];
+        BWHCircle *circle = [[BWHCircle alloc] init];
+//        circle.circleCenter= CGPointMake((p1.x+p2.x)/2.0, (p1.y+p2.y)/2.0);
+        circle.radius = (sqrtf((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))) / 2.0;
+        self.circleInProgress.radius = circle.radius;
+        
     } else {
         for (UITouch *t in touches) {
             NSValue *key = [NSValue valueWithNonretainedObject:t];
@@ -172,11 +183,10 @@
     NSLog(@"%@", NSStringFromSelector(_cmd));
     
     if ([touches count] == 2) {
-        for (UITouch *t in touches) {
-            NSValue *key = [NSValue valueWithNonretainedObject:t];
-            [self.finishedCircles addObject:self.circleInProgress[key]];
-            [self.circleInProgress removeObjectForKey:key];
-        }
+        BWHCircle *circle = self.circleInProgress;
+        [self.finishedCircles addObject:circle];
+        self.circleInProgress = nil;
+        
         
     } else {
         for (UITouch *t in touches) {
@@ -196,10 +206,7 @@
     NSLog(@"%@", NSStringFromSelector(_cmd));
     
     if ([touches count] == 2) {
-        for (UITouch *t in touches) {
-            NSValue *key = [NSValue valueWithNonretainedObject:t];
-            [self.circleInProgress removeObjectForKey:key];
-        }
+        self.circleInProgress = nil;
         
     } else {
         for (UITouch *t in touches) {

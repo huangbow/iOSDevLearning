@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA16CD521AF0CA0D006E9F6B /* BWHDrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA16CD511AF0CA0D006E9F6B /* BWHDrawViewController.m */; };
+		FA7FD2101AF4241C0001E37A /* BWHCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7FD20F1AF4241C0001E37A /* BWHCircle.m */; };
 		FAAB0A4A1AEE272C0052F4A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAB0A491AEE272C0052F4A7 /* main.m */; };
 		FAAB0A4D1AEE272C0052F4A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAB0A4C1AEE272C0052F4A7 /* AppDelegate.m */; };
 		FAAB0A501AEE272C0052F4A7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAB0A4F1AEE272C0052F4A7 /* ViewController.m */; };
@@ -32,6 +33,8 @@
 /* Begin PBXFileReference section */
 		FA16CD501AF0CA0D006E9F6B /* BWHDrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWHDrawViewController.h; path = TouchTracker/BWHDrawViewController.h; sourceTree = "<group>"; };
 		FA16CD511AF0CA0D006E9F6B /* BWHDrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWHDrawViewController.m; path = TouchTracker/BWHDrawViewController.m; sourceTree = "<group>"; };
+		FA7FD20E1AF4241C0001E37A /* BWHCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWHCircle.h; path = TouchTracker/BWHCircle.h; sourceTree = "<group>"; };
+		FA7FD20F1AF4241C0001E37A /* BWHCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWHCircle.m; path = TouchTracker/BWHCircle.m; sourceTree = "<group>"; };
 		FAAB0A441AEE272C0052F4A7 /* TouchTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAB0A481AEE272C0052F4A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAAB0A491AEE272C0052F4A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -74,6 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				FAAB0A701AEE2D610052F4A7 /* CoreGraphics.framework */,
+				FA7FD20E1AF4241C0001E37A /* BWHCircle.h */,
+				FA7FD20F1AF4241C0001E37A /* BWHCircle.m */,
 				FAAB0A6D1AEE2C230052F4A7 /* BWHLine.h */,
 				FAAB0A6E1AEE2C230052F4A7 /* BWHLine.m */,
 				FAAB0A721AEE2E0D0052F4A7 /* BWHDrawView.h */,
@@ -234,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA7FD2101AF4241C0001E37A /* BWHCircle.m in Sources */,
 				FAAB0A501AEE272C0052F4A7 /* ViewController.m in Sources */,
 				FAAB0A6F1AEE2C230052F4A7 /* BWHLine.m in Sources */,
 				FAAB0A741AEE2E0D0052F4A7 /* BWHDrawView.m in Sources */,
