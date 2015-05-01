@@ -8,13 +8,14 @@
 
 #import "BWHDrawView.h"
 #import "BWHLine.h"
+#import <math.h>
 
 @interface BWHDrawView ()
 
 //@property (nonatomic, strong) BWHLine *currentLine;
 @property (nonatomic, strong) NSMutableDictionary *lineInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedLines;
-@property (nonatomic, strong) NSMutableArray *circleInProgress;
+@property (nonatomic, strong) NSMutableDictionary *circleInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedCircles;
 
 @end
@@ -48,6 +49,21 @@
     [bp stroke];
 }
 
+- (void)strokeCircle:(CGPoint)p1 point:(CGPoint)p2
+{
+    CGPoint midPoint;
+    midPoint.x = (p1.x + p2.x) / 2;
+    midPoint.y = (p1.y + p2.y) / 2;
+    CGFloat radius = (sqrtf((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))) / 2.0;
+    UIBezierPath *bp = [UIBezierPath bezierPathWithArcCenter:midPoint
+                                                      radius:radius
+                                                  startAngle:0.0
+                                                    endAngle:M_PI_2
+                                                   clockwise:YES];
+    bp.lineWidth = 10;
+    
+}
+
 - (void)drawRect:(CGRect)rect
 {
     // Draw finished lines in black
@@ -61,6 +77,15 @@
     for (NSValue *key in self.lineInProgress) {
         [self strokeLine:self.lineInProgress[key]];
     }
+    
+    [[UIColor greenColor] set];
+    if (self.circleInProgress) {
+        NSArray *keys = [self.circleInProgress allKeys];
+        CGPoint p1 = [self.circleInProgress[keys[0]] CGPointValue];
+        CGPoint p2 = [self.circleInProgress[keys[1]] CGPointValue];
+        [self strokeCircle:p1 point:p2];
+    }
+    
     
     
 //    if (self.currentLine) {
@@ -80,9 +105,8 @@
         
         for (UITouch *t in touches) {
             CGPoint location = [t locationInView:self];
-            
-            [self.circleInProgress addObject:location];
-            
+            NSValue *key = [NSValue valueWithNonretainedObject:t];
+            self.circleInProgress[key] = [NSValue valueWithCGPoint:location];
         }
         
     } else {
@@ -120,15 +144,19 @@
 
     NSLog(@"%@", NSStringFromSelector(_cmd));
     
-    for (UITouch *t in touches) {
-        NSValue *key = [NSValue valueWithNonretainedObject:t];
-        BWHLine *line = self.lineInProgress[key];
-        
-        line.end = [t locationInView:self];
-        
-        
+    if ([touches count] == 2) {
+        for (UITouch *t in touches) {
+            NSValue *key = [NSValue valueWithNonretainedObject:t];
+            self.circleInProgress[key] = [NSValue valueWithCGPoint:[t locationInView:self]];
+        }
+    } else {
+        for (UITouch *t in touches) {
+            NSValue *key = [NSValue valueWithNonretainedObject:t];
+            BWHLine *line = self.lineInProgress[key];
+            
+            line.end = [t locationInView:self];
+        }
     }
-    
     
     [self setNeedsDisplay];
     
@@ -143,15 +171,22 @@
     
     NSLog(@"%@", NSStringFromSelector(_cmd));
     
-    for (UITouch *t in touches) {
-        NSValue *key = [NSValue valueWithNonretainedObject:t];
-        BWHLine *line = self.lineInProgress[key];
+    if ([touches count] == 2) {
+        for (UITouch *t in touches) {
+            NSValue *key = [NSValue valueWithNonretainedObject:t];
+            [self.finishedCircles addObject:self.circleInProgress[key]];
+            [self.circleInProgress removeObjectForKey:key];
+        }
         
-        [self.finishedLines addObject:line];
-        [self.lineInProgress removeObjectForKey:key];
+    } else {
+        for (UITouch *t in touches) {
+            NSValue *key = [NSValue valueWithNonretainedObject:t];
+            BWHLine *line = self.lineInProgress[key];
+            
+            [self.finishedLines addObject:line];
+            [self.lineInProgress removeObjectForKey:key];
+        }
     }
-    
-    
     [self setNeedsDisplay];
 }
 
@@ -160,11 +195,18 @@
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
     
-    for (UITouch *t in touches) {
-        NSValue *key = [NSValue valueWithNonretainedObject:t];
-        [self.lineInProgress removeObjectForKey:self.lineInProgress[key]];
+    if ([touches count] == 2) {
+        for (UITouch *t in touches) {
+            NSValue *key = [NSValue valueWithNonretainedObject:t];
+            [self.circleInProgress removeObjectForKey:key];
+        }
+        
+    } else {
+        for (UITouch *t in touches) {
+            NSValue *key = [NSValue valueWithNonretainedObject:t];
+            [self.lineInProgress removeObjectForKey:key];
+        }
     }
-    
     [self setNeedsDisplay];
 }
 
