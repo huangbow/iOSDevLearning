@@ -54,11 +54,17 @@
         [self strokeLine:line];
     }
     
-    if (self.currentLine) {
-        // If there is a line currently being drawn, do it in red
-        [[UIColor redColor] set];
-        [self strokeLine:self.currentLine];
+    [[UIColor redColor] set];
+    for (NSValue *key in self.lineInProgress) {
+        [self strokeLine:self.lineInProgress[key]];
     }
+    
+    
+//    if (self.currentLine) {
+//        // If there is a line currently being drawn, do it in red
+//        [[UIColor redColor] set];
+//        [self strokeLine:self.currentLine];
+//    }
 }
 
 
@@ -93,10 +99,22 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *t = [touches anyObject];
-    CGPoint location= [t locationInView:self];
+//    UITouch *t = [touches anyObject];
+//    CGPoint location= [t locationInView:self];
+//    
+//    self.currentLine.end = location;
+
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     
-    self.currentLine.end = location;
+    for (UITouch *t in touches) {
+        NSValue *key = [NSValue valueWithNonretainedObject:t];
+        BWHLine *line = self.lineInProgress[key];
+        
+        line.end = [t locationInView:self];
+        
+        
+    }
+    
     
     [self setNeedsDisplay];
     
@@ -105,12 +123,37 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.finishedLines addObject:self.currentLine];
+//    [self.finishedLines addObject:self.currentLine];
+//    
+//    self.currentLine = nil;
     
-    self.currentLine = nil;
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    
+    for (UITouch *t in touches) {
+        NSValue *key = [NSValue valueWithNonretainedObject:t];
+        BWHLine *line = self.lineInProgress[key];
+        
+        [self.finishedLines addObject:line];
+        [self.lineInProgress removeObjectForKey:key];
+    }
+    
     
     [self setNeedsDisplay];
 }
+
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    
+    for (UITouch *t in touches) {
+        NSValue *key = [NSValue valueWithNonretainedObject:t];
+        [self.lineInProgress removeObjectForKey:self.lineInProgress[key]];
+    }
+    
+    [self setNeedsDisplay];
+}
+
 
 
 
