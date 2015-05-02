@@ -19,6 +19,9 @@
 @property (nonatomic, strong) BWHCircle *circleInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedCircles;
 
+@property (nonatomic, weak) BWHLine *selectedLine;
+
+
 @end
 
 
@@ -35,6 +38,20 @@
         self.circleInProgress = [[BWHCircle alloc] init];
         self.backgroundColor = [UIColor grayColor];
         self.multipleTouchEnabled = YES;
+        
+        UITapGestureRecognizer *doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+        doubleTapRecognizer.delaysTouchesBegan = YES;
+        doubleTapRecognizer.numberOfTapsRequired = 2;
+        
+        [self addGestureRecognizer:doubleTapRecognizer];
+        
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        tapRecognizer.delaysTouchesBegan = YES;
+        [tapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
+        
+        [self addGestureRecognizer:tapRecognizer];
+        
+        
     }
     
     return self;
@@ -87,6 +104,12 @@
     for (BWHCircle *c in self.finishedCircles) {
         [self strokeCircle:c];
     }
+    
+    if (self.selectedLine) {
+        [[UIColor greenColor] set];
+        [self strokeLine:self.selectedLine];
+    }
+    
     
     
 //    if (self.currentLine) {
@@ -201,6 +224,29 @@
 }
 
 
+- (BWHLine *)lineAtPoint:(CGPoint)p
+{
+    // Find a line close to p
+    for (BWHLine *l in self.finishedLines) {
+        CGPoint start = l.begin;
+        CGPoint end = l.end;
+        
+        // Check a few points on the line
+        for (float t = 0.0; t <= 1.0; t +=0.05) {
+            float x = start.x+t*(end.x-start.x);
+            float y = start.y+t*(end.y-start.y);
+            
+            
+            // If the tapped point is within 20points,let's return this line
+            if (hypot(x-p.x, y-p.y) < 20.0) {
+                return l;
+            }
+        }
+    }
+    return nil;
+}
+
+
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
@@ -216,6 +262,26 @@
     }
     [self setNeedsDisplay];
 }
+
+- (void)doubleTap:(UIGestureRecognizer *)gr
+{
+    NSLog(@"Recognized Double Tap");
+    
+    [self.lineInProgress removeAllObjects];
+    [self.finishedLines removeAllObjects];
+    [self setNeedsDisplay];
+}
+
+- (void)tap:(UIGestureRecognizer *)gr
+{
+    NSLog(@"Recognized tap");
+    
+    CGPoint point = [gr locationInView:self];
+    self.selectedLine = [self lineAtPoint:point];
+    
+    [self setNeedsDisplay];
+}
+
 
 
 
