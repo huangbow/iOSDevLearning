@@ -15,7 +15,7 @@
 {
     
     
-    self.view = [[BWHDrawView alloc] initWithFrame:CGRectZero];
+    self.view = [[BWHDrawView alloc] initWithFrame:CGRectMake(50, 50, 50, 50)];
 }
 
 
