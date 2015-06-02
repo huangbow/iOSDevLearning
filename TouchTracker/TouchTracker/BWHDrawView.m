@@ -22,6 +22,7 @@
 @property (nonatomic, weak) BWHLine *selectedLine;
 
 @property (nonatomic, strong) UIPanGestureRecognizer *moveRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 
 
 @end
@@ -47,14 +48,16 @@
         
         [self addGestureRecognizer:doubleTapRecognizer];
         
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-        tapRecognizer.delaysTouchesBegan = YES;
-        [tapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
+        self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        self.tapRecognizer.delaysTouchesBegan = YES;
+        [self.tapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
         
-        [self addGestureRecognizer:tapRecognizer];
+        [self addGestureRecognizer:self.tapRecognizer];
         
         UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
         
+        
+        self.moveRecognizer.delaysTouchesBegan = YES;
         [self addGestureRecognizer:pressRecognizer];
         
         
@@ -62,7 +65,7 @@
         self.moveRecognizer.delegate = self;
         self.moveRecognizer.cancelsTouchesInView = NO;
         [self addGestureRecognizer:self.moveRecognizer];
-        
+        [self.moveRecognizer requireGestureRecognizerToFail:self.tapRecognizer];
         
     }
     
@@ -149,7 +152,12 @@
         circle.radius = (sqrtf((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))) / 2.0;
         self.circleInProgress = circle;
     } else {
-        for (UITouch *t in touches) {
+        if (self.selectedLine) {
+            self.selectedLine = nil;
+            [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+            
+        }
+            for (UITouch *t in touches) {
             CGPoint location = [t locationInView:self];
             
             BWHLine *line = [[BWHLine alloc] init];
@@ -295,7 +303,6 @@
     if (self.selectedLine) {
         // Make ourselves the target of menu item action messages
         [self becomeFirstResponder];
-        
         // Grab the menu controller
         UIMenuController *menu = [UIMenuController sharedMenuController];
         
@@ -357,6 +364,7 @@
     return NO;
 }
 
+
 - (void)moveLine:(UIPanGestureRecognizer *)gr
 {
     // If we have not selected a line, we do not do anything here
@@ -366,6 +374,7 @@
     
     // When the pan recognizer changes its position...
     if (gr.state == UIGestureRecognizerStateChanged) {
+        NSLog(@"Pan velocity in X:%f and Y:%f",[self.moveRecognizer velocityInView:self].x, [self.moveRecognizer velocityInView:self].y);
         // How far has the pan moved?
         CGPoint translation = [gr translationInView:self];
         
