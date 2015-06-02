@@ -145,8 +145,22 @@
 
 - (IBAction)backgroundTapped:(id)sender {
     [self.view endEditing:YES];
+    
+//    for (UIView *subview in self.view.subviews) {
+//        if ([subview hasAmbiguousLayout]) {
+//            [subview exerciseAmbiguityInLayout];
+//        }
+//    }
 }
 
+//- (void)viewDidLayoutSubviews
+//{
+//    for (UIView *subview in self.view.subviews) {
+//        if ([subview hasAmbiguousLayout]) {
+//            NSLog(@"AMBIGOUS: %@", subview);
+//        }
+//    }
+//}
 
 
 /*

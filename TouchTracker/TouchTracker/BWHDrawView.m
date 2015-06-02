@@ -95,6 +95,13 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    
+//    float f = 0.0;
+//    for (int i = 0; i < 1000000; i++) {
+//        f = f + sin(sin(time(NULL) + i));
+//    }
+//    NSLog(@"f = %f", f);
+    
     // Draw finished lines in black
 //    [[UIColor blackColor] set];
     for (BWHLine *line in self.finishedLines) {
@@ -388,6 +395,17 @@
         [gr setTranslation:CGPointZero inView:self];
         
     }
+}
+
+- (int)numberOfLines
+{
+    int count = 0;
+    
+    if (self.lineInProgress && self.finishedLines) {
+        count = [self.lineInProgress count] + [self.finishedLines count];
+    }
+    
+    return count;
 }
 
 
