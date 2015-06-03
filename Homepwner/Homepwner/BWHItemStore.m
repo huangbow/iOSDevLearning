@@ -22,12 +22,21 @@
 {
     static BWHItemStore *sharedStore;
     
-    //Do I need to create a sharedStore?
-    if (!sharedStore) {
+//    //Do I need to create a sharedStore?
+//    if (!sharedStore) {
+//        sharedStore = [[self alloc] initPrivate];
+//    }
+//    
+//    return sharedStore;
+    // For thread-safe
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         sharedStore = [[self alloc] initPrivate];
-    }
+    });
     
     return sharedStore;
+    
+    
 }
 
 

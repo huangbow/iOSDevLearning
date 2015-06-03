@@ -136,13 +136,25 @@
     // Create a new BHItem an add it to the store
     BWItem *newItem = [[BWHItemStore sharedStore] createItem];
     
-    // Figure out where that item is in the array
-    NSInteger lastRow = [[[BWHItemStore sharedStore] allItems] indexOfObject:newItem];
+//    // Figure out where that item is in the array
+//    NSInteger lastRow = [[[BWHItemStore sharedStore] allItems] indexOfObject:newItem];
+//    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+//    
+//    // Insert this new row into the table.
+//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+    BWHDetailViewController *detailViewController = [[BWHDetailViewController alloc] initForNewItem:YES];
+    detailViewController.item = newItem;
     
-    // Insert this new row into the table.
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    detailViewController.dismissBlock = ^{
+        [self.tableView reloadData];
+    };
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+    navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:navController animated:YES completion:NULL];
     
 }
 
@@ -174,7 +186,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BWHDetailViewController *detailViewController = [[BWHDetailViewController alloc] init];
+//    BWHDetailViewController *detailViewController = [[BWHDetailViewController alloc] init];
+    BWHDetailViewController *detailViewController = [[BWHDetailViewController alloc] initForNewItem:NO];
     
     NSArray *items = [[BWHItemStore sharedStore] allItems];
     BWItem *selectedItem = items[indexPath.row];

@@ -12,6 +12,10 @@
 
 @interface BWHDetailViewController : UIViewController
 
+- (instancetype)initForNewItem:(BOOL)isNew;
+
 @property (nonatomic, strong) BWItem *item;
+@property (nonatomic, copy) void (^dismissBlock)(void);
+
 
 @end

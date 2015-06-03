@@ -9,6 +9,7 @@
 #import "BWHDetailViewController.h"
 #import "BWItem.h"
 #import "BWHImageStore.h"
+#import "BWHItemStore.h"
 
 @interface BWHDetailViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, UIPopoverControllerDelegate>
 
@@ -24,6 +25,28 @@
 @end
 
 @implementation BWHDetailViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    [NSException raise:@"Wrong initializer" format:@"Use initForNewItem"];
+    return nil;
+}
+
+- (instancetype)initForNewItem:(BOOL)isNew
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        if (isNew) {
+            UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(save:)];
+            self.navigationItem.rightBarButtonItem = doneItem;
+            
+            UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+            self.navigationItem.leftBarButtonItem = cancelItem;
+            
+        }
+    }
+    return self;
+}
 
 -(void)setItem:(BWItem *)item
 {
@@ -215,6 +238,21 @@
     self.imagePickerPopover = nil;
 }
 
+
+- (void)save:(id)sender
+{
+//    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:self.dismissBlock];
+}
+
+- (void)cancel:(id)sender
+{
+    // If user cancelled, then remove the BWHItem from the store
+    [[BWHItemStore sharedStore] removeItem:self.item];
+    
+//    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:self.dismissBlock];
+}
 
 //- (void)viewDidLayoutSubviews
 //{
